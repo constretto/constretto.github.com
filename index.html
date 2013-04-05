@@ -14,16 +14,19 @@ title: Constretto - configuration made easy
 	<section>
 		<h3>Add depedendency</h3>
 		<p>Constretto is available from the central Sonatype OSS repository, so it is easy to add it to your project</p>
+		<h4>Maven</h4>
 		<p>If you're using Maven, add the following to your pom:</p>
 <pre>
-	{{ "
-	<dependency>
-		<groupId>org.constretto</groupId>
-		<artifactId>constretto-core</artifactId>
-		<version>2.0.3</version>
-	</dependency>
-	" | xml_escape }}
+	&lt;dependency&gt;
+		&lt;groupId&gt;org.constretto&lt;/groupId&gt;
+		&lt;artifactId&gt;constretto-core&lt;/artifactId&gt;
+		&lt;version&gt;{{site.latest_release}}&lt;/version&gt;
+	&lt;/dependency&gt;
 </pre> 
+	<h4>SBT</h4>
+<pre>
+	libraryDependencies += "org.constretto" % "constretto-core" % "{{site.latest_release}}"
+</pre>
 	</section>
 	<section>	
 	<h3>Add @Configuration or/and @Configure to POJO</h3>
