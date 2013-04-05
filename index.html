@@ -2,6 +2,95 @@
 layout: default
 title: The Constretto project
 ---
-The Constretto project is essentially about making it easier to configure your JVM-based applications. 
+<p class="lead">
+	The Constretto project is essentially about making it easier to configure your JVM-based applications. 
+	Constretto allows you to inject the runtime configuration into the running code, thus making it easy to reconfigure application without having to redeploy. 
+</p>
+<section>
+	<h2>Quickstart</h2>
+	<ol>
+	<li>In order to make your POJO "Constrettofied", you use the <em>@Configuration</em> (for fields and parameters) or <em>@Configure (on methods)</em> 
+<pre>
+	public class DataSourceConfiguration {
 
-More to come...
+	    private String myUrl;
+	    private String myPassword;
+	    private Integer version;
+
+		// When no expression is explicitly given Constretto will use field name as key
+	    @Configuration
+	    private String vendor;
+
+	    @Configuration("username")
+	    private String myUsername;
+
+		// Considered best practice. Field injections will reduce your ability to test code. 
+	    @Configure
+	    public void configure(String url, @Configuration("password") String secret) {
+	        this.myUrl = url;
+	        this.myPassword = secret;
+	    }
+
+	    @Configure
+	    public void setVersion(Integer version) {
+	        this.version = version;
+	    }
+
+	    public String getUrl() {
+	        return myUrl;
+	    }
+
+	    public String getUsername() {
+	        return myUsername;
+	    }
+
+	    public String getPassword() {
+	        return myPassword;
+	    }
+
+	    public String getVendor() {
+	        return vendor;
+	    }
+
+	    public Integer getVersion() {
+	        return version;
+	    }
+	} 	
+
+</pre>
+	</li>
+	<li>Tell Constretto where to read configuration from by constructing a ConstrettoConfiguration object
+<pre>
+	...
+	final ConstrettoConfiguration configuration = new ConstrettoBuilder(). // System properties are added as default
+		.createPropertiesStore() // for standard Java property files 
+			.addResource(Resource.create("file:/etc/app/database.properties"))
+			.done() // Multiple resources may be added
+		.createEncryptedPropertiesStore(SHARED_SECRET) // for Java property files with encrypted values
+			.addResource(Resource.create("http://companyserver/encrypted.properties"))
+			.done()
+		.createIniFileConfigurationStore() // For Windows-style INI files
+			.addResource(Resource.create("classpath:configuration.ini"))
+			.done()
+		.createJsonConfigurationStore() // Configuration in JSON format 
+			.addResource(Resource.create("http://companyserver/sharedConfiguration.json"))
+			.done()
+		.createObjectConfigurationStore() // Configuration as POJOs
+			.addObject(myPojo)
+			.done();
+		.getConfiguration();					
+	...
+</pre>	
+	</li>
+	<li>Use your ConstrettoConfiguration object to inject configuration
+<pre>
+...
+	DataSourceConfiguration dataSourceConfiguration = new DataSourceConfiguration();
+	configuration.on(dataSourceConfiguration); // for existing objects
+...	
+	DataSourceConfiguration dbConfig = configuration.as(DataSourceConfiguration.class) // Constretto constructs the pojo and injects configuration
+...
+</pre>	
+	</li>
+	</ol>
+</section>
