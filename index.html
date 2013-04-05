@@ -6,10 +6,11 @@ title: The Constretto project
 	The Constretto project is essentially about making it easier to configure your JVM-based applications. 
 	Constretto allows you to inject the runtime configuration into the running code, thus making it easy to reconfigure application without having to redeploy. 
 </p>
-<section>
+<article>
 	<h2>Quickstart</h2>
-	<ol>
-	<li>In order to make your POJO "Constrettofied", you use the <em>@Configuration</em> (for fields and parameters) or <em>@Configure (on methods)</em> 
+	<section>	
+	<h3>Add @Configuration or/and @Configure to POJO</h3>
+	<p>In order to make your POJO "Constrettofied", you use the <em>@Configuration</em> (for fields and parameters) or <em>@Configure (on methods)</em> </p>
 <pre>
 	public class DataSourceConfiguration {
 
@@ -58,8 +59,12 @@ title: The Constretto project
 	} 	
 
 </pre>
-	</li>
-	<li>Tell Constretto where to read configuration from by constructing a ConstrettoConfiguration object
+	</section>
+	<section>
+		<h3>Load configuration</h3>
+		<p>Tell Constretto where to read configuration from by constructing a ConstrettoConfiguration object. Constretto-Core currently supports
+			Java properties files, Encrypted Java properties files, Windows-style INI files, JSON, POJOs and System properties (automatically added when using the 
+			<code>ConstrettoBuilder</code>. Support for reading properties from LDAP is currently under development as a <a href="//github.com/constretto/constretto-core/tree/master/constretto-ldap">seperate module</a> </p>
 <pre>
 	...
 	final ConstrettoConfiguration configuration = new ConstrettoBuilder(). // System properties are added as default
@@ -81,8 +86,11 @@ title: The Constretto project
 		.getConfiguration();					
 	...
 </pre>	
-	</li>
-	<li>Use your ConstrettoConfiguration object to inject configuration
+	</section>
+	<section>
+		<h3>Inject configuration</h3>
+		<p>
+		Use your <code>ConstrettoConfiguration</code> object to inject configuration in your POJOs.</p>
 <pre>
 ...
 	DataSourceConfiguration dataSourceConfiguration = new DataSourceConfiguration();
@@ -91,6 +99,6 @@ title: The Constretto project
 	DataSourceConfiguration dbConfig = configuration.as(DataSourceConfiguration.class) // Constretto constructs the pojo and injects configuration
 ...
 </pre>	
-	</li>
-	</ol>
-</section>
+
+	</section>
+</article>
