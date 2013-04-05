@@ -1,13 +1,30 @@
 ---
 layout: default
-title: The Constretto project
+title: Constretto - configuration made easy
 ---
 <p class="lead">
 	The Constretto project is essentially about making it easier to configure your JVM-based applications. 
 	Constretto allows you to inject the runtime configuration into the running code, thus making it easy to reconfigure application without having to redeploy. 
 </p>
+<p>
+	Constretto and all its subprojects is distributed under an <a href="http://www.apache.org/licenses/LICENSE-2.0">ASF V2 license</a>.	
+</p>
 <article>
 	<h2>Quickstart</h2>
+	<section>
+		<h3>Add depedendency</h3>
+		<p>Constretto is available from the central Sonatype OSS repository, so it is easy to add it to your project</p>
+		<p>If you're using Maven, add the following to your pom:</p>
+<pre>
+	{{escape_once "
+	<dependency>
+		<groupId>org.constretto</groupId>
+		<artifactId>constretto-core</artifactId>
+		<version>2.0.3</version>
+	</dependency>
+	"}}
+</pre> 
+	</section>
 	<section>	
 	<h3>Add @Configuration or/and @Configure to POJO</h3>
 	<p>In order to make your POJO "Constrettofied", you use the <em>@Configuration</em> (for fields and parameters) or <em>@Configure (on methods)</em> </p>
