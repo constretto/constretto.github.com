@@ -61,7 +61,7 @@
 		$("article").each(function() {
 			var pageMenuDropdown = $("#pageMenuDropdown");
 			pageMenuDropdown.append("<option>" + $(this).find("h2").text() + "</option>");
-			$(this).find("section h3").each(function(){	pageMenuDropdown.append("<option>" + $(this).text() + "</option>");
+			$(this).find("section h3").each(function(){	pageMenuDropdown.append("<option>" + $(this).text() + "</option>")});
 		});
 	});
 </script>
