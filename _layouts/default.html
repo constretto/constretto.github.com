@@ -16,6 +16,12 @@
 			alt="Fork me on GitHub" 
 			class="hidden-phone">
 </a>
+<div class="visible-phone">
+	<select id="pageMenuDropdown">
+		
+	</select>
+	
+</div>
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span2">
@@ -50,6 +56,14 @@
 </div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-
+<script type="text/javascript">
+	$(function() {		
+		$("article").each(function() {
+			var pageMenuDropdown = $("#pageMenuDropdown");
+			pageMenuDropdown.append("<option>" + $(this).find("h2").text() + "</option>");
+			$(this).find("section h3").each(function(){	pageMenuDropdown.append("<option>" + $(this).text() + "</option>");
+		});
+	});
+</script>
 </body>
 </html>

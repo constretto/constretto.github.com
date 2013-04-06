@@ -45,7 +45,6 @@ public class DataSourceConfiguration {
     @Configuration("username")
     private String myUsername;
 
-	// Considered best practice. Field injections will reduce your ability to test code. 
     @Configure
     public void configure(String url, @Configuration("password") String secret) {
         this.myUrl = url;
