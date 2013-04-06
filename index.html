@@ -9,9 +9,9 @@ title: Constretto - configuration made easy
 <p>
 	Constretto and all its subprojects is distributed under an <a href="http://www.apache.org/licenses/LICENSE-2.0">ASF V2 license</a>.	
 </p>
-<article>
+<article id="quickstart">
 	<h2>Quickstart</h2>
-	<section>
+	<section id="quikstart-dependency">
 		<h3>Add depedendency</h3>
 		<p>Constretto is available from the central Sonatype OSS repository, so it is easy to add it to your project</p>
 		<h4>Maven</h4>
@@ -28,7 +28,7 @@ title: Constretto - configuration made easy
 libraryDependencies += "org.constretto" % "constretto-core" % "{{site.latest_release}}"
 </pre>
 	</section>
-	<section>	
+	<section id="quickstart-annotate">	
 	<h3>Add @Configuration or/and @Configure to POJO</h3>
 	<p>In order to make your POJO "Constrettofied", you use the <em>@Configuration</em> (for fields and parameters) or <em>@Configure (on methods)</em> </p>
 <pre>
@@ -79,7 +79,7 @@ public class DataSourceConfiguration {
 } 	
 </pre>
 	</section>
-	<section>
+	<section id="quickstart-load">
 		<h3>Load configuration</h3>
 		<p>Tell Constretto where to read configuration from by constructing a ConstrettoConfiguration object. Constretto-Core currently supports
 			Java properties files, Encrypted Java properties files, Windows-style INI files, JSON, POJOs and System properties (automatically added when using the 
@@ -106,7 +106,7 @@ final ConstrettoConfiguration configuration = new ConstrettoBuilder(). // System
 ...
 </pre>	
 	</section>
-	<section>
+	<section id="quickstart-inject">
 		<h3>Inject configuration</h3>
 		<p>
 		Use your <code>ConstrettoConfiguration</code> object to inject configuration in your POJOs.</p>
