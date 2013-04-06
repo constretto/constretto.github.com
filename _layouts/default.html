@@ -63,8 +63,8 @@
 	$(function() {		
 		$("article").each(function() {
 			var pageMenuDropdown = $("#pageMenuDropdown");
-			pageMenuDropdown.append(createOption(this.id, $(this).find("h2").text());
-			$(this).find("section h3").each(function(){	pageMenuDropdown.append(createOption($(this).parent("section").id, $(this).text()))});
+			pageMenuDropdown.append(createOption(this.id, $(this).find("h2").text()))});
+			$(this).find("section h3").each(function(){	pageMenuDropdown.append(createOption($(this).parent().id, $(this).text()))});
 		});
 	});
 </script>
