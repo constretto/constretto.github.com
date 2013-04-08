@@ -2,30 +2,71 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" />
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" >
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" >
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+	<link rel="icon" type="image/x-icon" href="//github.com/favicon.ico" >
 	<title>{{ page.title }}</title>
-
+	<meta name="description" content="{{ page.title }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
 </head>
-<body>
-<a href="//github.com/constretto/constretto-core" class="hidden-phone"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub"></a>
+<body data-spy="scroll" data-target="#pageMenu">
+<a href="//github.com/constretto/constretto-core">
+	<img 	style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" 
+			alt="Fork me on GitHub" 
+			class="hidden-phone">
+</a>
+<div class="visible-phone">
+	<select id="pageMenuDropdown">
+		
+	</select>
+	
+</div>
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span2">
-		<ul class="nav nav-list">
-			<li class="nav-header">Projects</li>
-			<li><a href="//github.com/constretto/constretto-core">Constretto Core</a></li>
-			<li><a href="//github.com/constretto/constretto-scala">Constretto Scala</a></li>
-			<li><a href="//github.com/constretto/constretto-android">Constretto Android</a></li>
-		</ul>
+			<div class="affixn hidden-phone">
+			<ul class="nav nav-list">
+				<li class="nav-header">Projects</li>
+				<li><a href="//github.com/constretto/constretto-core">Constretto Core</a></li>
+				<li><a href="//github.com/constretto/constretto-scala">Constretto Scala</a></li>
+			</ul>
+			<div id="pageMenu">
+				<ul class="nav nav-list">
+					<li class="nav-header">Quickstart</li>
+					<li><a href="#quikstart-dependency">Adding dependency</a></li>
+					<li><a href="#quickstart-annotate">Annotations</a></li>
+					<li><a href="#quickstart-load">Loading configuration</a></li>
+					<li><a href="#quickstart-inject">Injecting configuration</a></li>
+				</ul>
+			</div>
+			</div>
 		</div>
 		<div class="span10">
 			<h1>{{ page.title }}</h1>
 			{{ content }}	
 		</div>
 	</div>
+	<div class="offset2 span10">
+		<footer><p class="small">
+			Constretto is currently being maintained by <a href="//github.com/kaarenilsen">Kaare Nilsen</a> (<a href="http://arktekk.no/" target="_blank">Arktekk AS</a>) and <a href="//github.com/zapodot">Sondre Eikanger Kvalø</a> (<a href="http://sonat.no" target="_blank">Sonat Consulting AS</a>)
+		</p>
+		</footer>
+	</div>
 </div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	function createOption(id, text) {
+		return "<option value=\"" + id + "\">" + text + "</option>";
+	}
+	$(function() {		
+		$("article").each(function() {
+			var pageMenuDropdown = $("#pageMenuDropdown");
+			pageMenuDropdown.append(createOption(this.id, $(this).find("h2").text()))});
+			$(this).find("section h3").each(function(){	pageMenuDropdown.append(createOption($(this).parent().id, $(this).text()))});
+		});
+	});
+</script>
 </body>
 </html>

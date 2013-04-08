@@ -4,119 +4,117 @@ title: Constretto - configuration made easy
 ---
 <p class="lead">
 	The Constretto project is essentially about making it easier to configure your JVM-based applications. 
-	Constretto allows you to inject the runtime configuration into the running code, thus making it easy to reconfigure application without having to redeploy. 
+	Constretto allows you to inject the runtime configuration into the running code, thus making it easy to reconfigure your application without having to redeploy. 
 </p>
 <p>
 	Constretto and all its subprojects is distributed under an <a href="http://www.apache.org/licenses/LICENSE-2.0">ASF V2 license</a>.	
 </p>
-<article>
+<article id="quickstart">
 	<h2>Quickstart</h2>
-	<section>
+	<section id="quikstart-dependency">
 		<h3>Add depedendency</h3>
 		<p>Constretto is available from the central Sonatype OSS repository, so it is easy to add it to your project</p>
 		<h4>Maven</h4>
 		<p>If you're using Maven, add the following to your pom:</p>
 <pre>
-	&lt;dependency&gt;
-		&lt;groupId&gt;org.constretto&lt;/groupId&gt;
-		&lt;artifactId&gt;constretto-core&lt;/artifactId&gt;
-		&lt;version&gt;{{site.latest_release}}&lt;/version&gt;
-	&lt;/dependency&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.constretto&lt;/groupId&gt;
+	&lt;artifactId&gt;constretto-core&lt;/artifactId&gt;
+	&lt;version&gt;{{site.latest_release}}&lt;/version&gt;
+&lt;/dependency&gt;
 </pre> 
 	<h4>SBT</h4>
 <pre>
-	libraryDependencies += "org.constretto" % "constretto-core" % "{{site.latest_release}}"
+libraryDependencies += "org.constretto" % "constretto-core" % "{{site.latest_release}}"
 </pre>
 	</section>
-	<section>	
+	<section id="quickstart-annotate">	
 	<h3>Add @Configuration or/and @Configure to POJO</h3>
 	<p>In order to make your POJO "Constrettofied", you use the <em>@Configuration</em> (for fields and parameters) or <em>@Configure (on methods)</em> </p>
 <pre>
-	public class DataSourceConfiguration {
+public class DataSourceConfiguration {
 
-	    private String myUrl;
-	    private String myPassword;
-	    private Integer version;
+    private String myUrl;
+    private String myPassword;
+    private Integer version;
 
-		// When no expression is explicitly given Constretto will use field name as key
-	    @Configuration
-	    private String vendor;
+	// When no expression is explicitly given Constretto will use field name as key
+    @Configuration
+    private String vendor;
 
-	    @Configuration("username")
-	    private String myUsername;
+    @Configuration("username")
+    private String myUsername;
 
-		// Considered best practice. Field injections will reduce your ability to test code. 
-	    @Configure
-	    public void configure(String url, @Configuration("password") String secret) {
-	        this.myUrl = url;
-	        this.myPassword = secret;
-	    }
+    @Configure
+    public void configure(String url, @Configuration("password") String secret) {
+        this.myUrl = url;
+        this.myPassword = secret;
+    }
 
-	    @Configure
-	    public void setVersion(Integer version) {
-	        this.version = version;
-	    }
+    @Configure
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
-	    public String getUrl() {
-	        return myUrl;
-	    }
+    public String getUrl() {
+        return myUrl;
+    }
 
-	    public String getUsername() {
-	        return myUsername;
-	    }
+    public String getUsername() {
+        return myUsername;
+    }
 
-	    public String getPassword() {
-	        return myPassword;
-	    }
+    public String getPassword() {
+        return myPassword;
+    }
 
-	    public String getVendor() {
-	        return vendor;
-	    }
+    public String getVendor() {
+        return vendor;
+    }
 
-	    public Integer getVersion() {
-	        return version;
-	    }
-	} 	
-
+    public Integer getVersion() {
+        return version;
+    }
+} 	
 </pre>
 	</section>
-	<section>
+	<section id="quickstart-load">
 		<h3>Load configuration</h3>
 		<p>Tell Constretto where to read configuration from by constructing a ConstrettoConfiguration object. Constretto-Core currently supports
 			Java properties files, Encrypted Java properties files, Windows-style INI files, JSON, POJOs and System properties (automatically added when using the 
 			<code>ConstrettoBuilder</code>. Support for reading properties from LDAP is currently under development as a <a href="//github.com/constretto/constretto-core/tree/master/constretto-ldap">seperate module</a> </p>
 <pre>
-	...
-	final ConstrettoConfiguration configuration = new ConstrettoBuilder(). // System properties are added as default
-		.createPropertiesStore() // for standard Java property files 
-			.addResource(Resource.create("file:/etc/app/database.properties"))
-			.done() // Multiple resources may be added
-		.createEncryptedPropertiesStore(SHARED_SECRET) // for Java property files with encrypted values
-			.addResource(Resource.create("http://companyserver/encrypted.properties"))
-			.done()
-		.createIniFileConfigurationStore() // For Windows-style INI files
-			.addResource(Resource.create("classpath:configuration.ini"))
-			.done()
-		.createJsonConfigurationStore() // Configuration in JSON format 
-			.addResource(Resource.create("http://companyserver/sharedConfiguration.json"))
-			.done()
-		.createObjectConfigurationStore() // Configuration as POJOs
-			.addObject(myPojo)
-			.done();
-		.getConfiguration();					
-	...
+...
+final ConstrettoConfiguration configuration = new ConstrettoBuilder(). // System properties are added as default
+	.createPropertiesStore() // for standard Java property files 
+		.addResource(Resource.create("file:/etc/app/database.properties"))
+		.done() // Multiple resources may be added
+	.createEncryptedPropertiesStore(SHARED_SECRET) // for Java property files with encrypted values
+		.addResource(Resource.create("http://companyserver/encrypted.properties"))
+		.done()
+	.createIniFileConfigurationStore() // For Windows-style INI files
+		.addResource(Resource.create("classpath:configuration.ini"))
+		.done()
+	.createJsonConfigurationStore() // Configuration in JSON format 
+		.addResource(Resource.create("http://companyserver/sharedConfiguration.json"))
+		.done()
+	.createObjectConfigurationStore() // Configuration as POJOs
+		.addObject(myPojo)
+		.done();
+	.getConfiguration();					
+...
 </pre>	
 	</section>
-	<section>
+	<section id="quickstart-inject">
 		<h3>Inject configuration</h3>
 		<p>
 		Use your <code>ConstrettoConfiguration</code> object to inject configuration in your POJOs.</p>
 <pre>
 ...
-	DataSourceConfiguration dataSourceConfiguration = new DataSourceConfiguration();
-	configuration.on(dataSourceConfiguration); // for existing objects
+DataSourceConfiguration dataSourceConfiguration = new DataSourceConfiguration();
+configuration.on(dataSourceConfiguration); // for existing objects
 ...	
-	DataSourceConfiguration dbConfig = configuration.as(DataSourceConfiguration.class) // Constretto constructs the pojo and injects configuration
+DataSourceConfiguration dbConfig = configuration.as(DataSourceConfiguration.class) // Constretto constructs the pojo and injects configuration
 ...
 </pre>	
 
