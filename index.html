@@ -122,11 +122,11 @@ DataSourceConfiguration dbConfig = configuration.as(DataSourceConfiguration.clas
 	<section id="quickstart-tagging">
 		<h3>Environment tagging support</h3>
 		<p>Constretto supports storing environment-specific configuration by using tags. When using the Java property file format you can specify it using the @(tag) prefix:</p>
-		<pre>
-			somedb.username=default username
-			@production.somedb.username=username in production
-			@systest.somedb.username=username in system test
-		</pre>
+<pre>
+	somedb.username=default username
+	@production.somedb.username=username in production
+	@systest.somedb.username=username in system test
+</pre>
 		<h4>Telling Constretto which tags to look up</h4>
 		<p>
 		Constretto uses a System property, or System environment property to know what tags to look up.  this property is called "CONSTRETTO_TAGS"
