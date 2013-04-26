@@ -120,7 +120,7 @@ DataSourceConfiguration dbConfig = configuration.as(DataSourceConfiguration.clas
 
 	</section>
 	<section id="quickstart-tagging">
-		<h3>Tagging configuration</h3>
+		<h3>Environment tagging support</h3>
 		<p>Constretto supports storing environment-specific configuration by using tags. When using the Java property file format you can specify it using the @(tag) prefix:</p>
 		<pre>
 			somedb.username=default username
@@ -133,14 +133,14 @@ DataSourceConfiguration dbConfig = configuration.as(DataSourceConfiguration.clas
 		</p>
 		
 		<em>Example:</em>
-		<pre>
-			$java MyApp -DCONSTRETTO_TAGS=tag1,tag2,tag3
-		</pre>
+<pre>
+	$java MyApp -DCONSTRETTO_TAGS=tag1,tag2,tag3
+</pre>
 		Or
-		<pre>
-			$export CONSTRETTO_TAGS=tag1,tag2,tag3
-			$java Myapp
-		</pre>
+<pre>
+	$export CONSTRETTO_TAGS=tag1,tag2,tag3
+	$java Myapp
+</pre>
 
 
 	</section>
