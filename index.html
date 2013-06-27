@@ -5,8 +5,6 @@ title: Constretto - configuration made easy
 <p class="lead">
 	The Constretto project is essentially about making it easier to configure your JVM-based applications. 
 	Constretto allows you to inject the runtime configuration into the running code, thus making it easy to reconfigure your application without having to redeploy. 
-</p>
-<p>
 	Constretto and all its subprojects is distributed under an <a href="http://www.apache.org/licenses/LICENSE-2.0">ASF V2 license</a>.	
 </p>
 <article id="quickstart">
@@ -82,7 +80,7 @@ public class DataSourceConfiguration {
 		<h3>Load configuration</h3>
 		<p>Tell Constretto where to read configuration from by constructing a ConstrettoConfiguration object. Constretto-Core currently supports
 			Java properties files, Encrypted Java properties files, Windows-style INI files, JSON, POJOs and System properties (automatically added when using the 
-			<code>ConstrettoBuilder</code>. Support for reading properties from LDAP will be available in the next release. </p>
+			<code>ConstrettoBuilder</code>.  </p>
 <pre>
 ...
 final ConstrettoConfiguration configuration = new ConstrettoBuilder(). // System properties are added as default
